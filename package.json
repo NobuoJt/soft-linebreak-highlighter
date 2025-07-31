@@ -1,6 +1,6 @@
 {
   "name": "soft-linebreak-highlighter",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "main.js",
   "type": "module",
   "description": "A plugin to highlight non-markdown line breaks in live preview in Obsidian.",

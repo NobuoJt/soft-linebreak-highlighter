@@ -1,7 +1,12 @@
 {
   "name": "soft-linebreak-highlighter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "main.js",
+  "description": "A plugin to visualize soft line breaks in live preview in Obsidian.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nobuoJT/soft-linebreak-highlighter.git"
+  },
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c"

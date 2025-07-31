@@ -11,6 +11,8 @@ In Markdown, there are two types of line breaks:
 
 This plugin helps you visualize where you have soft line breaks that might not render as expected in Markdown. It displays a warning icon (⚠) at the end of lines that don't end with two spaces but have a line break.
 
+[Japanese Readme file](README.md)
+
 ## Features
 
 - **Visual indicators**: Shows a warning icon (⚠) for non-markdown line breaks

@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -15,35 +21,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 全履歴を取得してブランチ情報を確認
-
-      - name: Check if tag is from main branch
-        id: check_branch
-        run: |
-          # タグが指すコミットがmainブランチに含まれているかチェック
-          if git branch --contains ${{ github.ref_name }} | grep -q "main\|origin/main"; then
-            echo "is_main_branch=true" >> $GITHUB_OUTPUT
-          else
-            echo "is_main_branch=false" >> $GITHUB_OUTPUT
-            echo "Tag ${{ github.ref_name }} is not from main branch. Skipping release."
-          fi
+          fetch-depth: 0
 
       - name: Use Node.js
-        if: steps.check_branch.outputs.is_main_branch == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "18"
 
       - name: Install dependencies
-        if: steps.check_branch.outputs.is_main_branch == 'true'
         run: npm ci
 
       - name: Build plugin
-        if: steps.check_branch.outputs.is_main_branch == 'true'
         run: npm run build
 
       - name: Check if styles.css exists
-        if: steps.check_branch.outputs.is_main_branch == 'true'
         id: check_styles
         run: |
           if [ -f "styles.css" ]; then
@@ -53,11 +44,16 @@ jobs:
           fi
 
       - name: Create release
-        if: steps.check_branch.outputs.is_main_branch == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag="${GITHUB_REF#refs/tags/}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            tag="${{ github.event.inputs.tag }}"
+          else
+            tag="${GITHUB_REF#refs/tags/}"
+          fi
+          
+          echo "Creating release for tag: $tag"
           
           if [ "${{ steps.check_styles.outputs.styles_exists }}" = "true" ]; then
             gh release create "$tag" \

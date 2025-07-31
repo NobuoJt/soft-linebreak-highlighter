@@ -1,0 +1,9 @@
+{
+  "id": "softbreak-visualizer",
+  "name": "Soft Break Visualizer",
+  "version": "0.1.0",
+  "author": "nobuoJT",
+  "description": "ライブプレビュー上でソフト改行(スペース2つ+改行)を可視化します。",
+  "main": "main.js",
+  "minAppVersion": "0.15.0"
+}

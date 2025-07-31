@@ -1,7 +1,8 @@
 {
   "name": "soft-linebreak-highlighter",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "main": "main.js",
+  "type": "module",
   "description": "A plugin to highlight non-markdown line breaks in live preview in Obsidian.",
   "keywords": ["obsidian", "plugin", "markdown", "line-break", "highlight"],
   "author": "NobuoJt",
@@ -11,8 +12,8 @@
     "url": "https://github.com/NobuoJt/soft-linebreak-highlighter.git"
   },
   "scripts": {
-    "dev": "rollup -c -w",
-    "build": "rollup -c",
+    "dev": "npx rollup -c -w",
+    "build": "npx rollup -c",
     "version": "node version-bump.mjs && git add manifest.json versions.json"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
   "id": "soft-linebreak-highlighter",
   "name": "Soft Line Break Highlighter",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "author": "NobuoJt",
   "description": "Highlights non-markdown line breaks in live preview mode. Shows warning icons for lines that don't end with two spaces.",
   "main": "main.js",

@@ -13,7 +13,7 @@ This plugin helps you visualize where you have soft line breaks that might not r
 
 [Alt Japanese Readme file](README.md)
 
-![screenshot](image.png)
+![screenshot](images/screenshot1.png)
 
 ## Features
 

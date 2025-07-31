@@ -13,6 +13,8 @@ This plugin helps you visualize where you have soft line breaks that might not r
 
 [Japanese Readme file](README.md)
 
+![alt text](image.png)
+
 ## Features
 
 - **Visual indicators**: Shows a warning icon (⚠) for non-markdown line breaks

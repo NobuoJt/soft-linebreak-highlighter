@@ -8,7 +8,7 @@ export default {
     sourcemap: true,
     exports: 'default',
   },
-  external: ['obsidian', '@codemirror/view', '@codemirror/state'], // <- @codemirror/language を外す
+  external: ['obsidian', '@codemirror/view', '@codemirror/state', '@codemirror/language'],
   plugins: [
     typescript(),
   ],

@@ -5,6 +5,9 @@ on:
     tags:
       - "*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,18 +20,35 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build plugin
+        run: npm run build
+
+      - name: Check if styles.css exists
+        id: check_styles
         run: |
-          npm install
-          npm run build
+          if [ -f "styles.css" ]; then
+            echo "styles_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "styles_exists=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           tag="${GITHUB_REF#refs/tags/}"
-
-          gh release create "$tag" \
-            --title="$tag" \
-            --draft \
-            main.js manifest.json styles.css
+          
+          if [ "${{ steps.check_styles.outputs.styles_exists }}" = "true" ]; then
+            gh release create "$tag" \
+              --title="$tag" \
+              --draft \
+              main.js manifest.json styles.css
+          else
+            gh release create "$tag" \
+              --title="$tag" \
+              --draft \
+              main.js manifest.json
+          fi

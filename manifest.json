@@ -1,10 +1,11 @@
 {
-  "id": "softbreak-visualizer",
-  "name": "Soft Break Visualizer",
-  "version": "0.1.0",
-  "author": "nobuoJT",
-  "description": "ライブプレビュー上でソフト改行(スペース2つ+改行)を可視化します。",
+  "id": "soft-linebreak-highlighter",
+  "name": "Soft Line Break Highlighter",
+  "version": "0.1.1",
+  "author": "NobuoJt",
+  "description": "Highlights non-markdown line breaks in live preview mode. Shows warning icons for lines that don't end with two spaces.",
   "main": "main.js",
   "minAppVersion": "0.15.0",
-  "authorUrl":"https://github.com/nobuoJT"
+  "authorUrl": "https://github.com/NobuoJt",
+  "fundingUrl": "https://github.com/NobuoJt/soft-linebreak-highlighter"
 }

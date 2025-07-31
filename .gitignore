@@ -1,3 +1,38 @@
+# Dependencies
 node_modules
+
+# Build output
+main.js
+main.js.map
+*.d.ts
+
+# IDE
+.vscode/
 .DS_Store
+
+# Logs
 *.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directory
+jspm_packages
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Environment variables
+.env

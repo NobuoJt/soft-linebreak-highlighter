@@ -40,6 +40,27 @@ export default class SoftBreakPlugin extends Plugin {
 						const builder = new RangeSetBuilder<Decoration>();
 						const doc = view.state.doc;
 
+						// 全体をスキャンしてコードブロックの範囲を特定
+						const codeBlockRanges: {start: number, end: number}[] = [];
+						let currentStart = -1;
+						
+						for (let lineNum = 1; lineNum <= doc.lines; lineNum++) {
+							const line = doc.line(lineNum);
+							const lineText = doc.sliceString(line.from, line.to);
+							const trimmedLine = lineText.trim();
+							
+							if (/^[\s]*```/.test(trimmedLine)) {
+								if (currentStart === -1) {
+									// コードブロック開始
+									currentStart = line.from;
+								} else {
+									// コードブロック終了
+									codeBlockRanges.push({start: currentStart, end: line.to});
+									currentStart = -1;
+								}
+							}
+						}
+
 						for (let { from, to } of view.visibleRanges) {
 							// 可視範囲の全ての行をチェック
 							for (let pos = from; pos < to;) {
@@ -50,9 +71,15 @@ export default class SoftBreakPlugin extends Plugin {
 									const lineText = doc.sliceString(line.from, line.to);
 									const trimmedLine = lineText.trim();
 									
-									// 除外条件: 空行、markdown的改行（スペース2つ）、特定のMarkdown要素
+									// この行がコードブロック内にあるかチェック
+									const inCodeBlock = codeBlockRanges.some(range => 
+										line.from >= range.start && line.to <= range.end
+									);
+									
+									// 除外条件: 空行、markdown的改行（スペース2つ）、特定のMarkdown要素、コードブロック内
 									if (trimmedLine.length === 0 || 
 										lineText.endsWith("  ") ||
+										inCodeBlock ||
 										this.isExcludedMarkdownElement(trimmedLine)) {
 										// 除外対象なので何もしない
 									} else {
@@ -78,18 +105,13 @@ export default class SoftBreakPlugin extends Plugin {
 							return true;
 						}
 						
-						// リスト要素 (- * + または数字.)
-						if (/^[\s]*[-*+]\s/.test(lineText) || /^[\s]*\d+\.\s/.test(lineText)) {
+						// リスト要素 (- * + または数字.) - 文字があってもなくても除外
+						if (/^[\s]*[-*+](\s|$)/.test(lineText) || /^[\s]*\d+\.(\s|$)/.test(lineText)) {
 							return true;
 						}
 						
 						// 引用ブロック (>)
-						if (/^[\s]*>\s/.test(lineText)) {
-							return true;
-						}
-						
-						// コードブロック (```)
-						if (/^[\s]*```/.test(lineText)) {
+						if (/^[\s]*>/.test(lineText)) {
 							return true;
 						}
 						

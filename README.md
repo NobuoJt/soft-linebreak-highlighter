@@ -83,9 +83,15 @@ This project is licensed under the MIT License.
 
 ## Changelog
 
+### 0.1.8
+
+- Moved styling from JavaScript to CSS (Obsidian review requirement)
+- Easier customization via themes and snippets
+
 ### 0.1.1
 
 - Initial release
 - Basic soft line break detection
 - Smart exclusions for common Markdown elements
+- Visual warning indicators
 - Visual warning indicators

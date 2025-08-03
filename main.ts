@@ -10,10 +10,7 @@ class SoftBreakWidget extends WidgetType {
   render() {
     const span = document.createElement("span");
     span.textContent = "⚠";
-    span.style.color = "orange";
-    span.style.opacity = "0.7";
-    span.style.fontSize = "80%";
-    span.style.paddingLeft = "0.2em";
+    span.className = "soft-linebreak-warning";
     span.title = "Non-markdown line break (no double space)";
     return span;
   }

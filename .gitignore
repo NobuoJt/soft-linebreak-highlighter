@@ -36,3 +36,8 @@ jspm_packages
 
 # Environment variables
 .env
+
+# Running Test directories
+/testDir
+
+/node_modules
